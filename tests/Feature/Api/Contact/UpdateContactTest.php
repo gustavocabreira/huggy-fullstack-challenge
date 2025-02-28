@@ -221,3 +221,14 @@ it('should return the cellphone number has already been taken', function () {
     $this->assertDatabaseMissing($model->getTable(), $payload);
     $this->assertDatabaseCount($model->getTable(), 2);
 });
+
+it('should return not found if the contact does not exist', function () {
+    $user = User::factory()->create();
+
+    $response = $this->actingAs($user)->putJson(route('api.contacts.update', [
+        'contact' => -1,
+    ]));
+
+    $response
+        ->assertStatus(Response::HTTP_NOT_FOUND);
+});
