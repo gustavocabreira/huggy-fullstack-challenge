@@ -11,4 +11,9 @@ class ContactPolicy
     {
         return $user->id === $contact->user_id;
     }
+
+    public function update(User $user, Contact $contact): bool
+    {
+        return $user->id === $contact->user_id;
+    }
 }

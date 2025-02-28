@@ -232,3 +232,17 @@ it('should return not found if the contact does not exist', function () {
     $response
         ->assertStatus(Response::HTTP_NOT_FOUND);
 });
+
+it('should return forbidden if the contact belongs to another user', function () {
+    $user = User::factory()->create();
+    $contact = Contact::factory()->create(['user_id' => $user->id]);
+    $anotherUser = User::factory()->create();
+
+    $payload = Contact::factory()->make()->toArray();
+
+    $response = $this->actingAs($anotherUser)->putJson(route('api.contacts.update', [
+        'contact' => $contact->id,
+    ]), $payload);
+
+    $response->assertStatus(Response::HTTP_FORBIDDEN);
+});

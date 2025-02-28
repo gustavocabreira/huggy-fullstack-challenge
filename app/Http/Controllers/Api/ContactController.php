@@ -31,6 +31,8 @@ class ContactController extends Controller
 
     public function update(Contact $contact, UpdateContactRequest $request, UpdateContactAction $action): JsonResponse
     {
+        Gate::authorize('update', $contact);
+
         $contact = $action->execute($contact, $request);
 
         return response()->json(new ContactResource($contact), Response::HTTP_OK);
