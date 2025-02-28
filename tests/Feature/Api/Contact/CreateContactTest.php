@@ -126,3 +126,22 @@ it('should return the email has already been taken', function () {
     $this->assertDatabaseMissing($model->getTable(), $payload);
     $this->assertDatabaseCount($model->getTable(), 1);
 });
+
+it('should return the phone number has already been taken', function () {
+    $model = new Contact;
+    $user = User::factory()->create();
+    $contact = Contact::factory()->create(['user_id' => $user->id]);
+
+    $payload = Contact::factory()->make(['user_id' => $user->id, 'phone_number' => $contact->phone_number])->toArray();
+
+    $response = $this->actingAs($user)->postJson(route('api.contacts.store'), $payload);
+
+    $response
+        ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+        ->assertJsonValidationErrors(['phone_number']);
+
+    expect($response->json('errors.phone_number.0'))->toBe('The phone number has already been taken.');
+
+    $this->assertDatabaseMissing($model->getTable(), $payload);
+    $this->assertDatabaseCount($model->getTable(), 1);
+});

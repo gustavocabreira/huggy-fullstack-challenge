@@ -27,7 +27,14 @@ class CreateContactRequest extends FormRequest
                     return $query->where('user_id', auth()->user()->id);
                 }),
             ],
-            'phone_number' => ['nullable', 'int', new PhoneNumber],
+            'phone_number' => [
+                'nullable',
+                'int',
+                new PhoneNumber,
+                Rule::unique('contacts')->where(function ($query) {
+                    return $query->where('user_id', auth()->user()->id);
+                }),
+            ],
             'cellphone_number' => ['nullable', 'int', new CellphoneNumber],
             'address' => ['nullable', 'string', 'max:255'],
             'district' => ['nullable', 'string', 'max:255'],
