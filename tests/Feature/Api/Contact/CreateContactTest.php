@@ -67,6 +67,9 @@ dataset('invalid_payload', [
     'cellphone number must be an integer' => [
         ['cellphone_number' => 'invalid'], ['cellphone_number' => 'The cellphone number field must be an integer.'],
     ],
+    'cellphone number must starts with 9' => [
+        ['cellphone_number' => '888888888'], ['cellphone_number' => 'The cellphone number field must start with 9.'],
+    ],
     'address with more than 255 characters' => [
         ['address' => Str::repeat('a', 256)], ['address' => 'The address field must be at most 255 characters.'],
     ],
