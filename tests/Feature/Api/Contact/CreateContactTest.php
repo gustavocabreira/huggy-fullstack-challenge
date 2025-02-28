@@ -187,3 +187,22 @@ it('should be able to upload a photo when creating a contact', function () {
 
     Storage::assertExists($response->json('photo'));
 });
+
+it('should return photo is too large', function () {
+    Storage::fake();
+    $model = new Contact;
+    $user = User::factory()->create();
+
+    $payload = Contact::factory()->make(['user_id' => $user->id])->toArray();
+    $payload['photo'] = UploadedFile::fake()->create('avatar.png', 3 * 1024 * 1024); // 3MB file
+
+    $response = $this->actingAs($user)->postJson(route('api.contacts.store'), $payload);
+
+    $response
+        ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+        ->assertJsonValidationErrors(['photo']);
+
+    $this->assertDatabaseMissing($model->getTable(), $payload);
+
+    expect($response->json('errors.photo.0'))->toBe('The photo field must not be greater than 2048 kilobytes.');
+});
