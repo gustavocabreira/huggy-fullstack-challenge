@@ -8,6 +8,8 @@ class ContactObserver
 {
     public function creating(Contact $contact): void
     {
-        $contact->user_id = auth()->user()->id;
+        if (auth()->user()) {
+            $contact->user_id = auth()->user()->id;
+        }
     }
 }

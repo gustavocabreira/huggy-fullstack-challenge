@@ -107,3 +107,20 @@ it('should return unprocessable entity if the payload is invalid', function (arr
     $this->assertDatabaseMissing($model->getTable(), $payload);
     $this->assertDatabaseCount($model->getTable(), 0);
 })->with('invalid_payload');
+
+it('should return this email has already been taken', function () {
+    $model = new Contact;
+    $user = User::factory()->create();
+    $contact = Contact::factory()->create(['user_id' => $user->id]);
+
+    $payload = Contact::factory()->make(['user_id' => $user->id, 'email' => $contact->email])->toArray();
+
+    $response = $this->actingAs($user)->postJson(route('api.contacts.store'), $payload);
+
+    $response
+        ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+        ->assertJsonValidationErrors(['email']);
+
+    $this->assertDatabaseMissing($model->getTable(), $payload);
+    $this->assertDatabaseCount($model->getTable(), 1);
+});
