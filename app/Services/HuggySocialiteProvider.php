@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use Laravel\Socialite\Two\ProviderInterface;
 use Laravel\Socialite\Two\AbstractProvider;
+use Laravel\Socialite\Two\ProviderInterface;
 use Laravel\Socialite\Two\User;
 
 class HuggySocialiteProvider extends AbstractProvider implements ProviderInterface
@@ -27,7 +27,7 @@ class HuggySocialiteProvider extends AbstractProvider implements ProviderInterfa
     {
         $response = $this->getHttpClient()->get('https://api.huggy.app/v3/agents/profile', [
             'headers' => [
-                'Authorization' => 'Bearer ' . $token,
+                'Authorization' => 'Bearer '.$token,
             ],
         ]);
 
@@ -36,7 +36,7 @@ class HuggySocialiteProvider extends AbstractProvider implements ProviderInterfa
 
     protected function mapUserToObject(array $user)
     {
-        return (new User())->setRaw($user)->map([
+        return (new User)->setRaw($user)->map([
             'id' => $user['id'],
             'nickname' => $user['username'] ?? null,
             'name' => $user['name'] ?? null,
@@ -45,4 +45,3 @@ class HuggySocialiteProvider extends AbstractProvider implements ProviderInterfa
         ]);
     }
 }
-

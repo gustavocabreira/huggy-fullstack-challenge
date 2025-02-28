@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use Laravel\Socialite\Contracts\Factory as Socialite;
-use Illuminate\Support\ServiceProvider;
 use App\Services\HuggySocialiteProvider;
+use Illuminate\Support\ServiceProvider;
+use Laravel\Socialite\Contracts\Factory as Socialite;
 
 class HuggyServiceProvider extends ServiceProvider
 {
@@ -16,10 +16,10 @@ class HuggyServiceProvider extends ServiceProvider
             $config = $app['config']['services.huggy'] ?? [];
 
             return $socialite->buildProvider(HuggySocialiteProvider::class, [
-                'client_id'     => $config['client_id'] ?? '',
+                'client_id' => $config['client_id'] ?? '',
                 'client_secret' => $config['client_secret'] ?? '',
-                'redirect'      => $config['redirect'] ?? '',
-                'scopes'        => $config['scopes'] ?? [],
+                'redirect' => $config['redirect'] ?? '',
+                'scopes' => $config['scopes'] ?? [],
             ]);
         });
     }
