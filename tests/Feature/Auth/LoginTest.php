@@ -46,7 +46,7 @@ it('logs in a user with Huggy OAuth2', function () {
     $response
         ->assertOk()
         ->assertJsonStructure([
-            'access_token'
+            'access_token',
         ]);
 
     $this->assertDatabaseHas('users', [

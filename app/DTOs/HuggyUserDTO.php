@@ -5,14 +5,20 @@ namespace App\DTOs;
 class HuggyUserDTO
 {
     private $id;
+
     private $name;
+
     private $email;
+
     private $avatar;
+
     private $token;
+
     private $refresh_token;
+
     private $expires_in;
 
-    public function fromHubbyUser($user): self
+    public function fromHuggy($user): self
     {
         $this->id = $user->id;
         $this->name = $user->name;
@@ -21,6 +27,7 @@ class HuggyUserDTO
         $this->token = $user->token;
         $this->refresh_token = $user->refreshToken;
         $this->expires_in = $user->expiresIn;
+
         return $this;
     }
 

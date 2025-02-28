@@ -16,13 +16,14 @@ class LoginController extends Controller
     {
         return Socialite::driver($provider)->scopes([
             'install_app',
-            'read_agent_profile'
+            'read_agent_profile',
         ])->stateless()->redirect();
     }
 
     public function callback(Request $request, LoginAction $action): JsonResponse
     {
         $accessToken = $action->execute($request);
+
         return response()->json($accessToken, Response::HTTP_OK);
     }
 }

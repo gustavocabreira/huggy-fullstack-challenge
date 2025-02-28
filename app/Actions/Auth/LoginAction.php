@@ -10,11 +10,11 @@ class LoginAction
 {
     public function execute($request): array
     {
-        $hubbyUser = Socialite::driver($request->provider)->stateless()->user();
+        $huggyUser = Socialite::driver($request->provider)->stateless()->user();
 
-        $userPayload = (new HuggyUserDTO)->fromHubbyUser($hubbyUser)->toArray();
+        $userPayload = (new HuggyUserDTO)->fromHuggy($huggyUser)->toArray();
 
-        $user = User::query()->updateOrCreate(['email' => $hubbyUser->email], $userPayload);
+        $user = User::query()->updateOrCreate(['email' => $huggyUser->email], $userPayload);
         $user->createToken('Huggy')->accessToken;
 
         return [

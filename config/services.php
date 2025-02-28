@@ -39,5 +39,5 @@ return [
         'client_id' => env('HUGGY_CLIENT_ID'),
         'client_secret' => env('HUGGY_CLIENT_SECRET'),
         'redirect' => env('HUGGY_REDIRECT_URI'),
-    ]
+    ],
 ];
