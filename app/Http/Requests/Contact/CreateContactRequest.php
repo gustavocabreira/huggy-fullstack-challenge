@@ -25,7 +25,7 @@ class CreateContactRequest extends FormRequest
             'city' => ['nullable', 'string', 'max:255'],
             'state' => ['nullable', 'string', 'max:255'],
             'zip_code' => ['nullable', 'string', 'max:255'],
-            'photo' => ['nullable', 'file', 'mimes:jpg,jpeg,png'],
+            'photo' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
             'email' => [
                 'required',
                 'email',
