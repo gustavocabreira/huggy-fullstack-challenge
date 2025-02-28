@@ -15,7 +15,13 @@ class ContactController extends Controller
 
     public function store(CreateContactRequest $request): JsonResponse
     {
-        $contact = $this->model->query()->create($request->validated());
+        $payload = $request->validated();
+
+        if ($request->hasFile('photo')) {
+            $payload['photo'] = $request->file('photo')->storeAs('uploads', uniqid().'.'.$request->file('photo')->extension());
+        }
+
+        $contact = $this->model->query()->create($payload);
 
         return response()->json(new ContactResource($contact), Response::HTTP_CREATED);
     }

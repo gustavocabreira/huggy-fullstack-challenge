@@ -4,6 +4,7 @@ use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 it('should be able to create a contact', function () {
@@ -163,4 +164,26 @@ test('should return the cellphone number has already been taken', function () {
 
     $this->assertDatabaseMissing($model->getTable(), $payload);
     $this->assertDatabaseCount($model->getTable(), 1);
+});
+
+it('should be able to upload a photo when creating a contact', function () {
+    Storage::fake();
+    $model = new Contact;
+    $user = User::factory()->create();
+
+    $payload = Contact::factory()->make(['user_id' => $user->id])->toArray();
+    $payload['photo'] = UploadedFile::fake()->image('avatar.png');
+
+    $response = $this->actingAs($user)->postJson(route('api.contacts.store'), $payload);
+
+    $response
+        ->assertStatus(Response::HTTP_CREATED)
+        ->assertJsonStructure($model->getFillable());
+
+    $this->assertDatabaseHas('contacts', [
+        'id' => $response->json('id'),
+        'photo' => $response->json('photo'),
+    ]);
+
+    Storage::assertExists($response->json('photo'));
 });
