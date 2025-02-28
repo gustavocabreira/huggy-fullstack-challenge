@@ -5,6 +5,7 @@ use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 it('should be able to update the specified contact', function () {
     $model = new Contact;
@@ -76,3 +77,81 @@ test('it should be able to delete the old photo', function () {
 
     Storage::assertMissing($oldPhotoPath);
 });
+
+dataset('invalid_payload', dataset: [
+    'empty name' => [
+        ['name' => ''], ['name' => 'The name field is required.'],
+    ],
+    'name with more than 255 characters' => [
+        ['name' => Str::repeat('a', 256)], ['name' => 'The name field must be at most 255 characters.'],
+    ],
+    'invalid date of birth' => [
+        ['date_of_birth' => 'invalid'], ['date_of_birth' => 'The date of birth field is invalid.'],
+    ],
+    'date of birth is in the future' => [
+        ['date_of_birth' => now()->addDay()->format('Y-m-d')], ['date_of_birth' => 'The date of birth field must be a date before today.'],
+    ],
+    'empty email' => [
+        ['email' => ''], ['email' => 'The email field is required.'],
+    ],
+    'email with more than 255 characters' => [
+        ['email' => Str::repeat('a', 256).'@email.com'], ['email' => 'The email field must be at most 255 characters.'],
+    ],
+    'invalid phone number' => [
+        ['phone_number' => 'invalid'], ['phone_number' => 'The phone number field must be an integer.'],
+    ],
+    'phone number with more than 10 digits' => [
+        ['phone_number' => (int) Str::repeat('9', 11)], ['phone_number' => 'The phone number field must be a valid phone number with 10 digits.'],
+    ],
+    'cellphone number with more than 11 digits' => [
+        ['cellphone_number' => (int) Str::repeat('9', 12)], ['cellphone_number' => 'The cellphone number field must be a valid phone number with 11 digits.'],
+    ],
+    'phone number must be an integer' => [
+        ['phone_number' => 'invalid'], ['phone_number' => 'The phone number field must be an integer.'],
+    ],
+    'cellphone number must be an integer' => [
+        ['cellphone_number' => 'invalid'], ['cellphone_number' => 'The cellphone number field must be an integer.'],
+    ],
+    'cellphone number must starts with 9' => [
+        ['cellphone_number' => '888888888'], ['cellphone_number' => 'The cellphone number field must start with 9.'],
+    ],
+    'address with more than 255 characters' => [
+        ['address' => Str::repeat('a', 256)], ['address' => 'The address field must be at most 255 characters.'],
+    ],
+    'district with more than 255 characters' => [
+        ['district' => Str::repeat('a', 256)], ['district' => 'The district field must be at most 255 characters.'],
+    ],
+    'city with more than 255 characters' => [
+        ['city' => Str::repeat('a', 256)], ['city' => 'The city field must be at most 255 characters.'],
+    ],
+    'state with more than 255 characters' => [
+        ['state' => Str::repeat('a', 256)], ['state' => 'The state field must be at most 255 characters.'],
+    ],
+    'zip code with more than 255 characters' => [
+        ['zip_code' => Str::repeat('a', 256)], ['zip_code' => 'The zip code field must be at most 255 characters.'],
+    ],
+    'photo must be a file' => [
+        ['photo' => 'invalid'], ['photo' => 'The photo field must be a file of type: jpg, jpeg, png.'],
+    ],
+    'photo must be a jpg, jpeg or png file' => [
+        ['photo' => UploadedFile::fake()->image('avatar.xlsx')], ['photo' => 'The photo field must be a file of type: jpg, jpeg, png.'],
+    ],
+]);
+
+it('should return unprocessable entity if the payload is invalid', function (array $payload, array $expectedErrors) {
+    $key = array_keys($expectedErrors);
+    $model = new Contact;
+    $user = User::factory()->create();
+    $contact = Contact::factory()->create(['user_id' => $user->id]);
+
+    $response = $this->actingAs($user)->putJson(route('api.contacts.update', [
+        'contact' => $contact->id,
+    ]), $payload);
+
+    $response
+        ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+        ->assertJsonValidationErrors($key);
+
+    $this->assertDatabaseMissing($model->getTable(), $payload);
+    $this->assertDatabaseCount($model->getTable(), 1);
+})->with('invalid_payload');
