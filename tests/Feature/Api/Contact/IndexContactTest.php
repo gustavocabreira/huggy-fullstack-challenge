@@ -55,3 +55,28 @@ it('should return the contacts ordered by name', function () {
 
     expect($response->json('data.0.name'))->toBe('Aaa');
 });
+
+it('should return the contacts ordered by name descending', function () {
+    $model = new Contact;
+    $user = User::factory()->create();
+
+    Contact::factory()->count(5)->create(['user_id' => $user->id]);
+    Contact::factory()->create(['user_id' => $user->id, 'name' => 'Aaa']);
+
+    $response = $this->actingAs($user)->getJson(route('api.contacts.index', [
+        'order_by' => 'name',
+        'direction' => 'desc',
+    ]));
+
+    $response
+        ->assertStatus(Response::HTTP_OK)
+        ->assertJsonStructure([
+            'data' => [
+                '*' => $model->getFillable(),
+            ],
+            'meta',
+            'links',
+        ]);
+
+    expect($response->json('data.5.name'))->toBe('Aaa');
+});
