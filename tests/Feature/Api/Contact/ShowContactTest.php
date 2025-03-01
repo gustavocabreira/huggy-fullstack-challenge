@@ -31,7 +31,7 @@ it('should return not found if the contact does not exist', function () {
         ->assertStatus(Response::HTTP_NOT_FOUND);
 });
 
-it('should return forbidden if the contact belongs to another user', function () {
+it('should return not found if the contact belongs to another user', function () {
     $user = User::factory()->create();
     $contact = Contact::factory()->create(['user_id' => $user->id]);
 
@@ -41,5 +41,5 @@ it('should return forbidden if the contact belongs to another user', function ()
         'contact' => $contact->id,
     ]));
 
-    $response->assertStatus(Response::HTTP_FORBIDDEN);
+    $response->assertStatus(Response::HTTP_NOT_FOUND);
 });
