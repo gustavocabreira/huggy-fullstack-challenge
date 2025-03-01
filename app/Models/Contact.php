@@ -41,7 +41,6 @@ class Contact extends Model
     public function toSearchableArray(): array
     {
         return [
-            'id' => (int) $this->id,
             'name' => $this->name,
             'date_of_birth' => $this->date_of_birth,
             'email' => $this->email,
@@ -53,6 +52,11 @@ class Contact extends Model
             'state' => $this->state,
             'zip_code' => $this->zip_code,
         ];
+    }
+
+    public function searchableAs(): string
+    {
+        return 'contacts_index';
     }
 
     public function user(): BelongsTo
