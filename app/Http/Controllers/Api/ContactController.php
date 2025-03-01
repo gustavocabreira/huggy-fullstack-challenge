@@ -7,6 +7,7 @@ use App\Actions\Contact\DestroyContactAction;
 use App\Actions\Contact\UpdateContactAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\CreateContactRequest;
+use App\Http\Requests\Contact\IndexContactRequest;
 use App\Http\Requests\Contact\UpdateContactRequest;
 use App\Http\Resources\ContactResource;
 use App\Models\Contact;
@@ -16,6 +17,15 @@ use Illuminate\Support\Facades\Gate;
 
 class ContactController extends Controller
 {
+    public function index(IndexContactRequest $request): JsonResponse
+    {
+        $contacts = Contact::search($request->input('query'))
+            ->orderBy($request->input('order_by') ?? 'id', $request->input('direction') ?? 'asc')
+            ->paginate($request->input('per_page') ?? 10);
+
+        return ContactResource::collection($contacts)->response();
+    }
+
     public function store(CreateContactRequest $request, CreateContactAction $action): JsonResponse
     {
         $contact = $action->execute($request);
