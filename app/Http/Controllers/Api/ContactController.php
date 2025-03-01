@@ -37,4 +37,11 @@ class ContactController extends Controller
 
         return response()->json(new ContactResource($contact), Response::HTTP_OK);
     }
+
+    public function destroy(Contact $contact): JsonResponse
+    {
+        $contact->delete();
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
 }
