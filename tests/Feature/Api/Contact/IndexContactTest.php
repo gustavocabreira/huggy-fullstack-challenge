@@ -80,3 +80,28 @@ it('should return the contacts ordered by name descending', function () {
 
     expect($response->json('data.5.name'))->toBe('Aaa');
 });
+
+it('should return the contacts in the second page', function () {
+    $model = new Contact;
+    $user = User::factory()->create();
+
+    Contact::factory()->count(20)->create(['user_id' => $user->id]);
+
+    $response = $this->actingAs($user)->getJson(route('api.contacts.index', [
+        'page' => 2,
+    ]));
+
+    $response
+        ->assertStatus(Response::HTTP_OK)
+        ->assertJsonStructure([
+            'data' => [
+                '*' => $model->getFillable(),
+            ],
+            'meta',
+            'links',
+        ]);
+
+    expect(count($response->json('data')))->toBe(10)
+        ->and($response->json('meta.current_page'))->toBe(2)
+        ->and($response->json('meta.total'))->toBe(20);
+});
