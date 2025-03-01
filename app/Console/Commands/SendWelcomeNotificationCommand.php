@@ -15,9 +15,9 @@ class SendWelcomeNotificationCommand extends Command
     public function handle()
     {
         User::query()
-            ->where('created_at', '>=', now()->subMinutes(30))
+            ->where('created_at', '<=', now()->subMinutes(30))
+            ->whereNull('notified_at')
             ->chunk(100, function ($users) {
-                $this->info('Sending welcome notification to '.count($users).' users');
                 $users->each(function ($user) {
                     SendwelcomeNotificationJob::dispatch(
                         userId: $user->id,
