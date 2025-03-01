@@ -20,3 +20,14 @@ it('should be able to delete the specified contact', function () {
         'id' => $contact->id,
     ]);
 });
+
+it('should return not found if the contact does not exist', function () {
+    $user = User::factory()->create();
+
+    $response = $this->actingAs($user)->delete(route('api.contacts.destroy', [
+        'contact' => -1,
+    ]));
+
+    $response
+        ->assertStatus(Response::HTTP_NOT_FOUND);
+});
