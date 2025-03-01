@@ -27,6 +27,7 @@ class User extends Authenticatable
         'token',
         'refresh_token',
         'expires_in',
+        'notified_at',
     ];
 
     /**
@@ -41,6 +42,7 @@ class User extends Authenticatable
         'expires_in',
         'password',
         'remember_token',
+        'notified_at',
     ];
 
     protected function casts(): array
@@ -48,6 +50,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'notified_at' => 'datetime',
         ];
     }
 

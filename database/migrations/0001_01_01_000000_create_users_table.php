@@ -22,6 +22,7 @@ return new class extends Migration
             $table->longText('token');
             $table->longText('refresh_token');
             $table->integer('expires_in');
+            $table->datetime('notified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
