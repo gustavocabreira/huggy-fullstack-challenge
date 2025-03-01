@@ -19,5 +19,9 @@ class SendWelcomeNotificationAction
             userName: $user->name,
             userEmail: $user->email,
         ));
+
+        $user->update([
+            'notified_at' => now(),
+        ]);
     }
 }
