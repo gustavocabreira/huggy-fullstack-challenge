@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Actions\Contact\CreateContactAction;
+use App\Actions\Contact\DestroyContactAction;
 use App\Actions\Contact\UpdateContactAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\CreateContactRequest;
@@ -36,5 +37,14 @@ class ContactController extends Controller
         $contact = $action->execute($contact, $request);
 
         return response()->json(new ContactResource($contact), Response::HTTP_OK);
+    }
+
+    public function destroy(Contact $contact, DestroyContactAction $action): JsonResponse
+    {
+        Gate::authorize('delete', $contact);
+
+        $action->execute($contact);
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }
