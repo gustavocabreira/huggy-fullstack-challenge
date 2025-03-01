@@ -40,6 +40,7 @@ class ContactController extends Controller
 
     public function destroy(Contact $contact): JsonResponse
     {
+        Gate::authorize('delete', $contact);
         $contact->delete();
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
