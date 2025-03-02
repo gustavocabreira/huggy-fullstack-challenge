@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Actions\Auth\LoginAction;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
@@ -20,10 +18,10 @@ class LoginController extends Controller
         ])->stateless()->redirect();
     }
 
-    public function callback(Request $request, LoginAction $action): JsonResponse
+    public function callback(Request $request, LoginAction $action): RedirectResponse
     {
         $accessToken = $action->execute($request);
 
-        return response()->json($accessToken, Response::HTTP_OK);
+        return response()->redirectTo('http://spa.localhost.com/auth/login?access_token='.$accessToken['access_token']);
     }
 }

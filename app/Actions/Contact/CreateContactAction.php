@@ -11,7 +11,7 @@ class CreateContactAction
         $payload = $request->validated();
 
         if ($request->hasFile('photo')) {
-            $payload['photo'] = $request->file('photo')->storeAs('uploads', uniqid().'.'.$request->file('photo')->extension());
+            $payload['photo'] = $request->file('photo')->storeAs('uploads', uniqid().'.'.$request->file('photo')->extension(), 'public');
         }
 
         return Contact::query()->create($payload);

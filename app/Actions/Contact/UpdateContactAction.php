@@ -17,7 +17,7 @@ class UpdateContactAction
                 Storage::delete($contact->photo);
             }
 
-            $contact->photo = $request->file('photo')->storeAs('uploads', uniqid().'.'.$request->file('photo')->extension());
+            $contact->photo = $request->file('photo')->storeAs('uploads', uniqid().'.'.$request->file('photo')->extension(), 'public');
             $payload['photo'] = $contact->photo;
         }
 

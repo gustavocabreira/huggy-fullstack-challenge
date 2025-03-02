@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Searchable;
 
 #[ObservedBy(ContactObserver::class)]
@@ -29,6 +30,10 @@ class Contact extends Model
         'photo',
     ];
 
+    protected $appends = [
+        'photoUrl',
+    ];
+
     protected $casts = [
         'date_of_birth' => 'date',
     ];
@@ -41,7 +46,6 @@ class Contact extends Model
     public function toSearchableArray(): array
     {
         return [
-            'id' => (int) $this->id,
             'name' => $this->name,
             'date_of_birth' => $this->date_of_birth,
             'email' => $this->email,
@@ -55,8 +59,18 @@ class Contact extends Model
         ];
     }
 
+    public function searchableAs(): string
+    {
+        return 'contacts_index';
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getPhotoUrlAttribute(): string
+    {
+        return Storage::disk('public')->url($this->photo);
     }
 }

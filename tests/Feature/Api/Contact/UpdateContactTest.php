@@ -22,6 +22,7 @@ it('should be able to update the specified contact', function () {
         ->assertStatus(Response::HTTP_OK)
         ->assertJsonStructure($model->getFillable());
 
+    unset($payload['photoUrl']);
     $this->assertDatabaseHas('contacts', $payload);
     $this->assertDatabaseCount($model->getTable(), 1);
 });
@@ -48,7 +49,7 @@ test('it should be able to update the specified contact photo', function () {
         'photo' => $response->json('photo'),
     ]);
 
-    Storage::assertExists($response->json('photo'));
+    Storage::disk('public')->assertExists($response->json('photo'));
 });
 
 test('it should be able to delete the old photo', function () {
@@ -75,7 +76,7 @@ test('it should be able to delete the old photo', function () {
         'photo' => $response->json('photo'),
     ]);
 
-    Storage::assertMissing($oldPhotoPath);
+    Storage::disk('public')->assertMissing($oldPhotoPath);
 });
 
 dataset('invalid_payload', dataset: [

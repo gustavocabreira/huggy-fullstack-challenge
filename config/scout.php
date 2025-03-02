@@ -143,9 +143,10 @@ return [
         'host' => env('MEILISEARCH_HOST', 'http://localhost:7700'),
         'key' => env('MEILISEARCH_KEY'),
         'index-settings' => [
-            // 'users' => [
-            //     'filterableAttributes'=> ['id', 'name', 'email'],
-            // ],
+            \App\Models\Contact::class => [
+                'filterableAttributes' => ['id', 'name', 'email', 'date_of_birth', 'phone_number', 'cellphone_number', 'address', 'district', 'city', 'state', 'zip_code', 'created_at'],
+                'sortableAttributes' => ['id', 'name', 'email', 'date_of_birth', 'phone_number', 'cellphone_number', 'address', 'district', 'city', 'state', 'zip_code', 'created_at'],
+            ],
         ],
     ],
 

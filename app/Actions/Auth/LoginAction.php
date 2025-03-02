@@ -15,10 +15,10 @@ class LoginAction
         $userPayload = (new HuggyUserDTO)->fromHuggy($huggyUser)->toArray();
 
         $user = User::query()->updateOrCreate(['email' => $huggyUser->email], $userPayload);
-        $user->createToken('Huggy')->accessToken;
+        $token = $user->createToken('Huggy')->plainTextToken;
 
         return [
-            'access_token' => $user->token,
+            'access_token' => $token,
         ];
     }
 }
