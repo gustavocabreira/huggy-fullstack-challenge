@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Searchable;
 
 #[ObservedBy(ContactObserver::class)]
@@ -27,6 +28,10 @@ class Contact extends Model
         'state',
         'zip_code',
         'photo',
+    ];
+
+    protected $appends = [
+        'photoUrl',
     ];
 
     protected $casts = [
@@ -62,5 +67,10 @@ class Contact extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getPhotoUrlAttribute(): string
+    {
+        return Storage::disk('public')->url($this->photo);
     }
 }

@@ -23,6 +23,7 @@ class ContactResource extends JsonResource
             'zip_code' => $this->zip_code,
             'photo' => $this->photo,
             'user' => $this->whenLoaded('user'),
+            'photo_url' => $this->photo_url,
         ];
     }
 }

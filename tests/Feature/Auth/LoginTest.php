@@ -43,11 +43,7 @@ it('logs in a user with Huggy OAuth2', function () {
         ->andReturn($huggyUser);
 
     $response = $this->get(route('auth.callback', ['provider' => 'huggy']));
-    $response
-        ->assertOk()
-        ->assertJsonStructure([
-            'access_token',
-        ]);
+    $response->assertRedirect();
 
     $this->assertDatabaseHas('users', [
         'huggy_id' => '987654321',

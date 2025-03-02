@@ -185,7 +185,7 @@ it('should be able to upload a photo when creating a contact', function () {
         'photo' => $response->json('photo'),
     ]);
 
-    Storage::assertExists($response->json('photo'));
+    Storage::disk('public')->assertExists($response->json('photo'));
 });
 
 it('should return photo is too large', function () {
