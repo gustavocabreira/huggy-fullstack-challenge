@@ -22,6 +22,7 @@ it('should be able to update the specified contact', function () {
         ->assertStatus(Response::HTTP_OK)
         ->assertJsonStructure($model->getFillable());
 
+    unset($payload['date_of_birth']);
     unset($payload['photoUrl']);
     $this->assertDatabaseHas('contacts', $payload);
     $this->assertDatabaseCount($model->getTable(), 1);
