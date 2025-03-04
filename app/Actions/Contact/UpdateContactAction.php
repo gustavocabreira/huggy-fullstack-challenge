@@ -21,7 +21,7 @@ class UpdateContactAction
             $payload['photo'] = $contact->photo;
         }
 
-        $contact->query()->update($payload);
+        $contact->update($payload);
 
         return $contact;
     }

@@ -12,7 +12,7 @@ class ContactResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'date_of_birth' => $this->date_of_birth,
+            'date_of_birth' => $this->date_of_birth->format('Y-m-d'),
             'email' => $this->email,
             'phone_number' => $this->phone_number,
             'cellphone_number' => $this->cellphone_number,
@@ -20,6 +20,7 @@ class ContactResource extends JsonResource
             'district' => $this->district,
             'city' => $this->city,
             'state' => $this->state,
+            'country' => $this->country,
             'zip_code' => $this->zip_code,
             'photo' => $this->photo,
             'user' => $this->whenLoaded('user'),

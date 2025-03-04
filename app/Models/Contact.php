@@ -26,6 +26,7 @@ class Contact extends Model
         'district',
         'city',
         'state',
+        'country',
         'zip_code',
         'photo',
     ];
@@ -55,6 +56,7 @@ class Contact extends Model
             'district' => $this->district,
             'city' => $this->city,
             'state' => $this->state,
+            'country' => $this->country,
             'zip_code' => $this->zip_code,
         ];
     }
@@ -69,8 +71,12 @@ class Contact extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getPhotoUrlAttribute(): string
+    public function getPhotoUrlAttribute(): string | null
     {
+        if (!$this->photo) {
+            return null;
+        }
+
         return Storage::disk('public')->url($this->photo);
     }
 }
