@@ -23,7 +23,7 @@ class UpdateContactRequest extends FormRequest
             'address' => ['nullable', 'string', 'max:255'],
             'district' => ['nullable', 'string', 'max:255'],
             'city' => ['nullable', 'string', 'max:255'],
-            'state' => ['nullable', 'string', 'max:255'],
+            'state' => ['nullable', 'string', 'max:2'],
             'country' => ['nullable', 'string', 'max:255'],
             'zip_code' => ['nullable', 'string', 'max:255'],
             'photo' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],

@@ -21,7 +21,7 @@ class ContactFactory extends Factory
             'address' => fake()->address(),
             'district' => fake()->state(),
             'city' => fake()->city(),
-            'state' => fake()->state(),
+            'state' => fake()->stateAbbr(),
             'country' => fake()->country(),
             'zip_code' => fake()->postcode(),
             // 'photo' => fake()->imageUrl(),

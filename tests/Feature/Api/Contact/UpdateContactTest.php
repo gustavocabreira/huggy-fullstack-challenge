@@ -126,8 +126,8 @@ dataset('invalid_payload', dataset: [
     'city with more than 255 characters' => [
         ['city' => Str::repeat('a', 256)], ['city' => 'The city field must be at most 255 characters.'],
     ],
-    'state with more than 255 characters' => [
-        ['state' => Str::repeat('a', 256)], ['state' => 'The state field must be at most 255 characters.'],
+    'state with more than 2 characters' => [
+        ['state' => Str::repeat('a', 256)], ['state' => 'The state field must be at most 2 characters.'],
     ],
     'zip code with more than 255 characters' => [
         ['zip_code' => Str::repeat('a', 256)], ['zip_code' => 'The zip code field must be at most 255 characters.'],
