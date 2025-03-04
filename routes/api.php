@@ -12,5 +12,6 @@ Route::name('api.')
 
         Route::prefix('reports')->name('reports.')->group(function() {
            Route::get('grouped-by-state', [ReportController::class, 'groupedByState'])->name('grouped-by-state');
+            Route::get('grouped-by-city', [ReportController::class, 'groupedByCity'])->name('grouped-by-city');
         });
     });
