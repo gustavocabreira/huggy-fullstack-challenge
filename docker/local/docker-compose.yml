@@ -64,6 +64,18 @@ services:
             - internal
         command: -invite-jim=1
 
+    ngrok:
+        image: ngrok/ngrok:latest
+        command:
+            - "http"
+            - "http://laravel:9051"
+        environment:
+            NGROK_AUTHTOKEN: 2tq9igW70XzYelnDA7S0V2fBfm7_6wr71meumfp7mL5Z3GdVH
+        ports:
+            - 4040:4040
+        networks:
+              - internal
+
 networks:
     internal:
         external: true
