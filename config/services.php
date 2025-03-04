@@ -40,4 +40,13 @@ return [
         'client_secret' => env('HUGGY_CLIENT_SECRET'),
         'redirect' => env('HUGGY_REDIRECT_URI'),
     ],
+
+    'twilio' => [
+        'account_sid' => env('TWILIO_ACCOUNT_SID'),
+        'auth_token' => env('TWILIO_AUTH_TOKEN'),
+        'api_key_sid' => env('TWILIO_API_KEY_SID'),
+        'api_key_secret' => env('TWILIO_API_KEY_SECRET'),
+        'app_sid' => env('TWILIO_APP_SID'),
+        'number' => env('TWILIO_NUMBER'),
+    ],
 ];
