@@ -9,8 +9,8 @@ class CellphoneNumber implements ValidationRule
 {
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (! preg_match('/^9\d{10}$/', $value)) {
-            $fail('The '.$attribute.' field must be start with a 9.');
+        if (! preg_match('/^\d{2}9\d{8}$/', $value)) {
+            $fail('The '.$attribute.' field must start with a area code, followed by a 9, and then 9 more digits.');
 
             return;
         }
