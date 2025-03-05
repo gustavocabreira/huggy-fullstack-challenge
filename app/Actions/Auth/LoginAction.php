@@ -4,6 +4,7 @@ namespace App\Actions\Auth;
 
 use App\DTOs\HuggyUserDTO;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginAction
@@ -16,6 +17,8 @@ class LoginAction
 
         $user = User::query()->updateOrCreate(['email' => $huggyUser->email], $userPayload);
         $token = $user->createToken('Huggy')->plainTextToken;
+
+        Auth::login($user);
 
         return [
             'access_token' => $token,
