@@ -49,4 +49,8 @@ return [
         'app_sid' => env('TWILIO_APP_SID'),
         'number' => env('TWILIO_NUMBER'),
     ],
+
+    'webhook' => [
+        'url' => env('WEBHOOK_URL'),
+    ],
 ];

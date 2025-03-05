@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\TwilioController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\WebhookController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,4 @@ Route::name('api.')
     });
 
 Route::post('twilio-webhook', [TwilioController::class, 'handleTwilioWebhook'])->name('twilio.webhook');
+Route::post('webhook', WebhookController::class)->name('webhook');

@@ -32,21 +32,21 @@ class CreateContactRequest extends FormRequest
                 'email',
                 'max:255',
                 $this->uniqueUserRule('email'),
-                'required_without_all:phone_number,cellphone_number', // Ensures email is required if both phone fields are missing
+                'required_without_all:phone_number,cellphone_number',
             ],
             'phone_number' => [
                 'nullable',
                 'int',
                 new PhoneNumber,
                 $this->uniqueUserRule('phone_number'),
-                'required_without_all:email,cellphone_number', // Ensures phone_number is required if both email and cell are missing
+                'required_without_all:email,cellphone_number',
             ],
             'cellphone_number' => [
                 'nullable',
                 'int',
                 new CellphoneNumber,
                 $this->uniqueUserRule('cellphone_number'),
-                'required_without_all:email,phone_number', // Ensures cellphone_number is required if both email and phone are missing
+                'required_without_all:email,phone_number',
             ],
         ];
     }
