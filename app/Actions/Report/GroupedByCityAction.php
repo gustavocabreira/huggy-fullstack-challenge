@@ -11,8 +11,13 @@ class GroupedByCityAction
     public function execute(): Collection
     {
         return Contact::query()
-                ->select('city', DB::raw('count(city) as count'), 'state')
-                ->groupBy('city')
+                ->select(
+                    'city',
+                    DB::raw('count(city) as count'),
+                    'state'
+                )
+                ->whereNotNUll('city')
+                ->groupBy('city', 'state')
                 ->orderBy('count', 'desc')
                 ->get();
     }
