@@ -122,7 +122,7 @@ it('should return the email has already been taken', function () {
         ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
         ->assertJsonValidationErrors(['email']);
 
-    expect($response->json('errors.email.0'))->toBe('The email has already been taken.');
+    expect($response->json('errors.email.0'))->toBe('O campo email já está sendo utilizado.');
 
     $this->assertDatabaseMissing($model->getTable(), $payload);
     $this->assertDatabaseCount($model->getTable(), 1);
@@ -141,7 +141,7 @@ it('should return the phone number has already been taken', function () {
         ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
         ->assertJsonValidationErrors(['phone_number']);
 
-    expect($response->json('errors.phone_number.0'))->toBe('The phone number has already been taken.');
+    expect($response->json('errors.phone_number.0'))->toBe('O campo phone number já está sendo utilizado.');
 
     $this->assertDatabaseMissing($model->getTable(), $payload);
     $this->assertDatabaseCount($model->getTable(), 1);
@@ -160,7 +160,7 @@ test('should return the cellphone number has already been taken', function () {
         ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
         ->assertJsonValidationErrors(['cellphone_number']);
 
-    expect($response->json('errors.cellphone_number.0'))->toBe('The cellphone number has already been taken.');
+    expect($response->json('errors.cellphone_number.0'))->toBe('O campo cellphone number já está sendo utilizado.');
 
     $this->assertDatabaseMissing($model->getTable(), $payload);
     $this->assertDatabaseCount($model->getTable(), 1);
@@ -204,5 +204,5 @@ it('should return photo is too large', function () {
 
     $this->assertDatabaseMissing($model->getTable(), $payload);
 
-    expect($response->json('errors.photo.0'))->toBe('The photo field must not be greater than 2048 kilobytes.');
+    expect($response->json('errors.photo.0'))->toBe('O campo photo não pode ser superior a 2048 kilobytes.');
 });

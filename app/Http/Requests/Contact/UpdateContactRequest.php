@@ -28,22 +28,25 @@ class UpdateContactRequest extends FormRequest
             'zip_code' => ['nullable', 'string', 'max:255'],
             'photo' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
             'email' => [
-                'required',
+                'nullable',
                 'email',
                 'max:255',
                 $this->uniqueUserRule('email'),
+                'required_without_all:phone_number,cellphone_number',
             ],
             'phone_number' => [
                 'nullable',
                 'int',
                 new PhoneNumber,
                 $this->uniqueUserRule('phone_number'),
+                'required_without_all:email,cellphone_number',
             ],
             'cellphone_number' => [
                 'nullable',
                 'int',
                 new CellphoneNumber,
                 $this->uniqueUserRule('cellphone_number'),
+                'required_without_all:email,phone_number',
             ],
         ];
     }
@@ -58,5 +61,14 @@ class UpdateContactRequest extends FormRequest
                 return $query->where('user_id', auth()->user()->id)
                     ->where($attribute, $this->input($attribute));
             });
+    }
+
+    public function messages(): array
+    {
+        return [
+            'email.required_without_all' => 'Você precisa fornecer um e-mail, número de telefone ou número de celular.',
+            'phone_number.required_without_all' => 'Você precisa fornecer um e-mail, número de telefone ou número de celular.',
+            'cellphone_number.required_without_all' => 'Você precisa fornecer um e-mail, número de telefone ou número de celular.',
+        ];
     }
 }
