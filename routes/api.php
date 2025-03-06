@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\TwilioController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WebhookController;
+use App\Http\Controllers\Api\WebhookLogController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,8 @@ Route::name('api.')
         });
 
         Route::get('/twilio/generate-token', [TwilioController::class, 'generateToken']);
+
+        Route::get('webhooks', [WebhookLogController::class, 'index']);
     });
 
 Route::post('twilio-webhook', [TwilioController::class, 'handleTwilioWebhook'])->name('twilio.webhook');

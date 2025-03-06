@@ -22,8 +22,13 @@ class ContactController extends Controller
      */
     public function index(IndexContactRequest $request): JsonResponse
     {
-        $contacts = Contact::search($request->input('query'))
-            ->orderBy($request->input('order_by') ?? 'created_at', $request->input('direction') ?? 'asc')
+        if (! empty($request->input('query'))) {
+            $contacts = Contact::search($request->input('query'));
+        } else {
+            $contacts = Contact::query();
+        }
+
+        $contacts = $contacts->orderBy($request->input('order_by') ?? 'created_at', $request->input('direction') ?? 'asc')
             ->paginate($request->input('per_page') ?? 10);
 
         return ContactResource::collection($contacts)->response();
