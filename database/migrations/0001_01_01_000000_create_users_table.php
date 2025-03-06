@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->integer('huggy_id');
+            $table->integer('huggy_id')->nullable();
             $table->string('avatar')->nullable();
-            $table->longText('token');
-            $table->longText('refresh_token');
-            $table->integer('expires_in');
+            $table->longText('token')->nullable();
+            $table->longText('refresh_token')->nullable();
+            $table->integer('expires_in')->nullable();
             $table->datetime('notified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

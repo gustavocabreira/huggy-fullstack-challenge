@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('api.')
     ->middleware('auth:sanctum')->group(function () {
-        Route::get('me', [UserController::class, 'me']);
-        Route::post('logout', [LoginController::class, 'logout']);
+        Route::get('me', [UserController::class, 'me'])->name('me');
         Route::apiResource('contacts', ContactController::class);
 
         Route::prefix('reports')->name('reports.')->group(function() {
@@ -20,8 +19,15 @@ Route::name('api.')
         });
 
         Route::get('/twilio/generate-token', [TwilioController::class, 'generateToken']);
-
     });
 
 Route::post('twilio-webhook', [TwilioController::class, 'handleTwilioWebhook'])->name('twilio.webhook');
 Route::post('webhook', WebhookController::class)->name('webhook');
+
+Route::name('api.auth.')
+    ->prefix('auth')
+    ->group(function() {
+        Route::post('register', [LoginController::class, 'register'])->name('register');
+        Route::post('login', [LoginController::class, 'login'])->name('login');
+        Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+});
