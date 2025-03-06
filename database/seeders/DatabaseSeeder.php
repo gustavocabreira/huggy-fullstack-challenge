@@ -15,7 +15,5 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
-        Contact::factory()->count(1000)->create(['user_id' => 1]);
     }
 }
