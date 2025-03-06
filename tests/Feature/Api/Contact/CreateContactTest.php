@@ -220,7 +220,7 @@ it('should dispatch the contact.created job', function () {
 
     $response = $this->actingAs($user)->postJson(route('api.contacts.store'), $payload);
 
-    Queue::assertPushed(SendWebhookJob::class, function ($job) use($response) {
+    Queue::assertPushed(SendWebhookJob::class, function ($job) use ($response) {
         return $job->event === 'contact.created' && $job->payload['id'] === $response->json('id');
     });
 });

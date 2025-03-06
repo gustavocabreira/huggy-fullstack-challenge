@@ -2,7 +2,7 @@
 
 use App\Models\User;
 
-it('should be retrieve the access token to login', function() {
+it('should be retrieve the access token to login', function () {
     $user = User::factory()->create([
         'password' => 'password',
     ]);

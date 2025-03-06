@@ -83,7 +83,7 @@ it('should dispatch the contact.deleted job', function () {
         'contact' => $contact->id,
     ]));
 
-    Queue::assertPushed(SendWebhookJob::class, function ($job) use($contact) {
+    Queue::assertPushed(SendWebhookJob::class, function ($job) use ($contact) {
         return $job->event === 'contact.deleted' && $job->payload['id'] === $contact->id;
     });
 });

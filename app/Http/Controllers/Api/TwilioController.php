@@ -7,15 +7,10 @@ use App\Services\TwilioService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Twilio\Jwt\AccessToken;
-use Twilio\Jwt\Grants\VoiceGrant;
-use Twilio\Rest\Client;
-use Twilio\TwiML\VoiceResponse;
 
 class TwilioController extends Controller
 {
-
-    public function __construct(protected TwilioService $twilioService) { }
+    public function __construct(protected TwilioService $twilioService) {}
 
     public function handleTwilioWebhook(Request $request)
     {

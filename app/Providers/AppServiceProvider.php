@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Contact;
 use Dedoc\Scramble\Support\Generator\SecurityScheme;
 use Illuminate\Support\ServiceProvider;
 

@@ -13,12 +13,14 @@ class ReportController extends Controller
     public function groupedByState(GenerateGroupedByStateAction $action): JsonResponse
     {
         $states = $action->execute();
+
         return response()->json($states, Response::HTTP_OK);
     }
 
     public function groupedByCity(GroupedByCityAction $action): JsonResponse
     {
         $cities = $action->execute();
+
         return response()->json($cities, Response::HTTP_OK);
     }
 }

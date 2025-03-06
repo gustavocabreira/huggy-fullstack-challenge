@@ -9,7 +9,7 @@ beforeEach(function () {
     Queue::fake();
 });
 
-it('should be able to group by state', function() {
+it('should be able to group by state', function () {
     $user = User::factory()->create();
     Contact::factory()->count(10)->create(['user_id' => $user->id, 'state' => 'SP']);
     Contact::factory()->count(3)->create(['user_id' => $user->id, 'state' => 'RJ']);
@@ -23,7 +23,7 @@ it('should be able to group by state', function() {
         ->and($response->json('1.count'))->toBe(3);
 });
 
-it('should be able to group by city', function() {
+it('should be able to group by city', function () {
     $user = User::factory()->create();
     Contact::factory()->count(3)->create(['user_id' => $user->id, 'state' => 'SP', 'city' => 'São Paulo']);
     Contact::factory()->count(5)->create(['user_id' => $user->id, 'state' => 'RJ', 'city' => 'Rio de Janeiro']);

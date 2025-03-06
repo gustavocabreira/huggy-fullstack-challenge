@@ -55,7 +55,7 @@ class LoginController extends Controller
     {
         $validated = $request->validated();
 
-        if (!Auth::attempt($validated)) {
+        if (! Auth::attempt($validated)) {
             return response()->json(['message' => 'Invalid credentials.'], Response::HTTP_UNAUTHORIZED);
         }
 

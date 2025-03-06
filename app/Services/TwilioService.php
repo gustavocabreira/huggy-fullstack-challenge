@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+
 use Twilio\Base\BaseClient;
 use Twilio\Jwt\AccessToken;
 use Twilio\Jwt\Grants\VoiceGrant;
@@ -21,7 +22,7 @@ class TwilioService
 
     public function handleTwilioWebhook($numberToCall): VoiceResponse
     {
-        $response = new VoiceResponse();
+        $response = new VoiceResponse;
 
         $numberToCall = sprintf('+%s', $numberToCall);
 
@@ -48,7 +49,7 @@ class TwilioService
             identity: auth()->user()->id
         );
 
-        $voiceGrant = new VoiceGrant();
+        $voiceGrant = new VoiceGrant;
         $voiceGrant->setOutgoingApplicationSid(config('services.twilio.app_sid'));
         $voiceGrant->setIncomingAllow(true);
         $token->addGrant($voiceGrant);

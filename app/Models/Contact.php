@@ -71,9 +71,9 @@ class Contact extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getPhotoUrlAttribute(): string | null
+    public function getPhotoUrlAttribute(): ?string
     {
-        if (!$this->photo) {
+        if (! $this->photo) {
             return null;
         }
 

@@ -13,8 +13,8 @@ Route::name('api.')
         Route::get('me', [UserController::class, 'me'])->name('me');
         Route::apiResource('contacts', ContactController::class);
 
-        Route::prefix('reports')->name('reports.')->group(function() {
-           Route::get('grouped-by-state', [ReportController::class, 'groupedByState'])->name('grouped-by-state');
+        Route::prefix('reports')->name('reports.')->group(function () {
+            Route::get('grouped-by-state', [ReportController::class, 'groupedByState'])->name('grouped-by-state');
             Route::get('grouped-by-city', [ReportController::class, 'groupedByCity'])->name('grouped-by-city');
         });
 
@@ -26,8 +26,8 @@ Route::post('webhook', WebhookController::class)->name('webhook');
 
 Route::name('api.auth.')
     ->prefix('auth')
-    ->group(function() {
+    ->group(function () {
         Route::post('register', [LoginController::class, 'register'])->name('register');
         Route::post('login', [LoginController::class, 'login'])->name('login');
         Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-});
+    });

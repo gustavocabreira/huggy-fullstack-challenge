@@ -4,7 +4,7 @@ use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
-it('should be able to register', function() {
+it('should be able to register', function () {
     $payload = User::factory()->make()->toArray();
     $payload['password'] = 'password';
     $payload['password_confirmation'] = 'password';

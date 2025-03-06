@@ -265,7 +265,7 @@ it('should dispatch the contact.updated job', function () {
         'contact' => $contact->id,
     ]), $payload);
 
-    Queue::assertPushed(SendWebhookJob::class, function ($job) use($response) {
+    Queue::assertPushed(SendWebhookJob::class, function ($job) use ($response) {
         return $job->event === 'contact.updated' && $job->payload['id'] === $response->json('id');
     });
 });
