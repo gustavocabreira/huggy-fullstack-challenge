@@ -25,7 +25,7 @@ class SendWebhookJob implements ShouldQueue
             'event' => $this->event,
             'payload' => $this->payload,
             'response' => '',
-            'status' => 'pending',
+            'status' => 'processing',
         ]);
 
         try {

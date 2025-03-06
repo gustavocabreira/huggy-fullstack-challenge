@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('event');
             $table->json('payload');
             $table->string('response');
-            $table->enum('status', ['pending', 'success', 'error']);
+            $table->enum('status', ['processing', 'success', 'failed']);
             $table->timestamps();
         });
     }
