@@ -16,16 +16,28 @@ class ContactObserver
 
     public function created(Contact $contact): void
     {
-        SendWebhookJob::dispatch('contact.created', $contact->toArray());
+        SendWebhookJob::dispatch(
+            userId: $contact->user_id,
+            event: 'contact.created',
+            payload: $contact->toArray(),
+        );
     }
 
     public function updated(Contact $contact): void
     {
-        SendWebhookJob::dispatch('contact.updated', $contact->toArray());
+        SendWebhookJob::dispatch(
+            userId: $contact->user_id,
+            event: 'contact.updated',
+            payload: $contact->toArray(),
+        );
     }
 
     public function deleted(Contact $contact): void
     {
-        SendWebhookJob::dispatch('contact.deleted', $contact->toArray());
+        SendWebhookJob::dispatch(
+            userId: $contact->user_id,
+            event: 'contact.deleted',
+            payload: $contact->toArray(),
+        );
     }
 }
