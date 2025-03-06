@@ -12,6 +12,9 @@ class TwilioController extends Controller
 {
     public function __construct(protected TwilioService $twilioService) {}
 
+    /**
+     * Processa o webhook do Twilio
+     */
     public function handleTwilioWebhook(Request $request)
     {
         $response = $this->twilioService->handleTwilioWebhook($request->input('to'));
@@ -19,6 +22,9 @@ class TwilioController extends Controller
         return response($response)->header('Content-Type', 'application/xml');
     }
 
+    /**
+     * Gera um token para autenticação do Twilio
+     */
     public function generateToken(): JsonResponse
     {
         $token = $this->twilioService->generateToken();

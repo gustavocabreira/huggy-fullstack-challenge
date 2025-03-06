@@ -16,6 +16,9 @@ use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
+    /**
+     * Redireciona para o provedor de autenticação Huggy
+     */
     public function redirectToProvider($provider): RedirectResponse
     {
         return Socialite::driver($provider)->scopes([
@@ -24,6 +27,9 @@ class LoginController extends Controller
         ])->stateless()->redirect();
     }
 
+    /**
+     * Processa o callback do Huggy
+     */
     public function callback(Request $request, LoginAction $action): RedirectResponse
     {
         $accessToken = $action->execute($request);
@@ -33,6 +39,9 @@ class LoginController extends Controller
         return response()->redirectTo($redirectUrl);
     }
 
+    /**
+     * Desloga o usuário
+     */
     public function logout(Request $request): JsonResponse
     {
         request()->user()->tokens()->delete();
@@ -42,6 +51,9 @@ class LoginController extends Controller
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * Registra um novo usuário
+     */
     public function register(RegisterRequest $request): JsonResponse
     {
         $validated = $request->validated();
@@ -51,6 +63,9 @@ class LoginController extends Controller
         return response()->json($user, Response::HTTP_CREATED);
     }
 
+    /**
+     * Loga o usuário
+     */
     public function login(LoginRequest $request): JsonResponse
     {
         $validated = $request->validated();

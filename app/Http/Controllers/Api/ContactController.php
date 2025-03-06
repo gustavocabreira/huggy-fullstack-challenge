@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Gate;
 
 class ContactController extends Controller
 {
+    /**
+     * Lista de contatos
+     */
     public function index(IndexContactRequest $request): JsonResponse
     {
         $contacts = Contact::search($request->input('query'))
@@ -26,6 +29,9 @@ class ContactController extends Controller
         return ContactResource::collection($contacts)->response();
     }
 
+    /**
+     * Cria um novo contato
+     */
     public function store(CreateContactRequest $request, CreateContactAction $action): JsonResponse
     {
         $contact = $action->execute($request);
@@ -33,6 +39,9 @@ class ContactController extends Controller
         return response()->json(new ContactResource($contact), Response::HTTP_CREATED);
     }
 
+    /**
+     * Exibe um contato
+     */
     public function show(Contact $contact): JsonResponse
     {
         Gate::authorize('view', $contact);
@@ -40,6 +49,9 @@ class ContactController extends Controller
         return response()->json(new ContactResource($contact), Response::HTTP_OK);
     }
 
+    /**
+     * Atualiza um contato
+     */
     public function update(Contact $contact, UpdateContactRequest $request, UpdateContactAction $action): JsonResponse
     {
         Gate::authorize('update', $contact);
@@ -49,6 +61,9 @@ class ContactController extends Controller
         return response()->json(new ContactResource($contact), Response::HTTP_OK);
     }
 
+    /**
+     * Deleta um contato
+     */
     public function destroy(Contact $contact, DestroyContactAction $action): JsonResponse
     {
         Gate::authorize('delete', $contact);

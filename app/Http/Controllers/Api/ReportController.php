@@ -10,6 +10,9 @@ use Illuminate\Http\Response;
 
 class ReportController extends Controller
 {
+    /**
+     * Relatório agrupado por estado
+     */
     public function groupedByState(GenerateGroupedByStateAction $action): JsonResponse
     {
         $states = $action->execute();
@@ -17,6 +20,9 @@ class ReportController extends Controller
         return response()->json($states, Response::HTTP_OK);
     }
 
+    /**
+     * Relatório agrupado por cidade
+     */
     public function groupedByCity(GroupedByCityAction $action): JsonResponse
     {
         $cities = $action->execute();
