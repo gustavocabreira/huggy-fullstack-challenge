@@ -6,6 +6,7 @@ use App\Actions\Auth\LoginAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -60,7 +61,7 @@ class LoginController extends Controller
 
         $user = User::query()->create($validated);
 
-        return response()->json($user, Response::HTTP_CREATED);
+        return response()->json(new UserResource($user), Response::HTTP_CREATED);
     }
 
     /**
