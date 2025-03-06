@@ -1,11 +1,17 @@
 <?php
 
+use App\Jobs\SendWebhookJob;
 use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+
+beforeEach(function () {
+    Queue::fake();
+});
 
 it('should be able to update the specified contact', function () {
     $model = new Contact;
@@ -247,4 +253,19 @@ it('should return not found if the contact belongs to another user', function ()
     ]), $payload);
 
     $response->assertStatus(Response::HTTP_NOT_FOUND);
+});
+
+it('should dispatch the contact.updated job', function () {
+    $user = User::factory()->create();
+    $contact = Contact::factory()->create(['user_id' => $user->id]);
+
+    $payload = Contact::factory()->make()->toArray();
+
+    $response = $this->actingAs($user)->putJson(route('api.contacts.update', [
+        'contact' => $contact->id,
+    ]), $payload);
+
+    Queue::assertPushed(SendWebhookJob::class, function ($job) use($response) {
+        return $job->event === 'contact.updated' && $job->payload['id'] === $response->json('id');
+    });
 });

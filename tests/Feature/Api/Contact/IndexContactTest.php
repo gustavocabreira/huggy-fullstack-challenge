@@ -3,11 +3,13 @@
 use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Queue;
 
 beforeEach(function () {
     config([
         'scout.driver' => 'database',
     ]);
+    Queue::fake();
 });
 
 it('should be able to list the contacts', function () {

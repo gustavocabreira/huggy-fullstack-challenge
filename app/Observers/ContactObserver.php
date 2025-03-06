@@ -4,7 +4,6 @@ namespace App\Observers;
 
 use App\Jobs\SendWebhookJob;
 use App\Models\Contact;
-use Illuminate\Support\Facades\Http;
 
 class ContactObserver
 {

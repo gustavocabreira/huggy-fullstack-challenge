@@ -11,7 +11,10 @@ class GenerateGroupedByStateAction
     public function execute(): Collection
     {
         return Contact::query()
-                ->select('state', DB::raw('count(state) as count'))
+                ->select(
+                    DB::raw('CASE WHEN state IS NULL THEN "Não informado" ELSE state END as state'),
+                    DB::raw('count(state) as count')
+                )
                 ->groupBy('state')
                 ->orderBy('count', 'desc')
                 ->get();

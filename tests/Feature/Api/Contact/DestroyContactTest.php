@@ -1,10 +1,16 @@
 <?php
 
+use App\Jobs\SendWebhookJob;
 use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
+
+beforeEach(function () {
+    Queue::fake();
+});
 
 it('should be able to delete the specified contact', function () {
     $model = new Contact;
@@ -67,4 +73,17 @@ it('should delete the contact photo', function () {
     ]);
 
     Storage::assertMissing($oldPhotoPath);
+});
+
+it('should dispatch the contact.deleted job', function () {
+    $user = User::factory()->create();
+    $contact = Contact::factory()->create(['user_id' => $user->id]);
+
+    $this->actingAs($user)->delete(route('api.contacts.destroy', [
+        'contact' => $contact->id,
+    ]));
+
+    Queue::assertPushed(SendWebhookJob::class, function ($job) use($contact) {
+        return $job->event === 'contact.deleted' && $job->payload['id'] === $contact->id;
+    });
 });

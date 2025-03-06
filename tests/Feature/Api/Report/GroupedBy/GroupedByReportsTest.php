@@ -3,6 +3,11 @@
 use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Queue;
+
+beforeEach(function () {
+    Queue::fake();
+});
 
 it('should be able to group by state', function() {
     $user = User::factory()->create();

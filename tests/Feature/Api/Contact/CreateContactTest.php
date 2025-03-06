@@ -1,11 +1,17 @@
 <?php
 
+use App\Jobs\SendWebhookJob;
 use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+
+beforeEach(function () {
+    Queue::fake();
+});
 
 it('should be able to create a contact', function () {
     $model = new Contact;
@@ -205,4 +211,16 @@ it('should return photo is too large', function () {
     $this->assertDatabaseMissing($model->getTable(), $payload);
 
     expect($response->json('errors.photo.0'))->toBe('O campo photo não pode ser superior a 2048 kilobytes.');
+});
+
+it('should dispatch the contact.created job', function () {
+    $user = User::factory()->create();
+
+    $payload = Contact::factory()->make()->toArray();
+
+    $response = $this->actingAs($user)->postJson(route('api.contacts.store'), $payload);
+
+    Queue::assertPushed(SendWebhookJob::class, function ($job) use($response) {
+        return $job->event === 'contact.created' && $job->payload['id'] === $response->json('id');
+    });
 });

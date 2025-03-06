@@ -12,11 +12,10 @@ class GroupedByCityAction
     {
         return Contact::query()
                 ->select(
-                    'city',
+                    DB::raw('CASE WHEN city IS NULL THEN "Não informado" ELSE city END as city'),
                     DB::raw('count(city) as count'),
-                    'state'
+                    DB::raw('CASE WHEN state IS NULL THEN "Não informado" ELSE state END as state'),
                 )
-                ->whereNotNUll('city')
                 ->groupBy('city', 'state')
                 ->orderBy('count', 'desc')
                 ->get();
