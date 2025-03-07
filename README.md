@@ -23,6 +23,7 @@ API desenvolvida em Laravel para gerenciar os contatos de um usuário. É possí
 - [Scramble](https://scramble.dedoc.co/) (Documentação)
 - [NGROK](https://ngrok.com/) (Exposição de aplicações)
 - [Huggy](https://www.huggy.io/pt-br) (Autenticação por OAuth2)
+- [Twilio](https://www.twilio.com/) (VOIP)
 
 ## Instalação
 
