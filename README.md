@@ -85,7 +85,7 @@ sh install.sh --app-name=huggy-fullstack-challenge
 
 8. Você pode acessar a documentação do projeto em http://api.localhost.com/docs/api
 
-9. Se você quiser, você pode exportar a documentação da API para um arquivo JSON e utilizá-la no Postman, acessando http://api.localhost.com/docs/api e exportando.
+9. Se você quiser, você pode exportar a documentação da API para um arquivo JSON e utilizá-la no Postman acessando http://api.localhost.com/docs/api e exportando.
 
 10. Após a instalação, você deve clonar o [repositório frontend](https://github.com/gustavocabreira/huggy-fullstack-challenge-spa) e seguir os passos descritos no README.md do repositório.
 
