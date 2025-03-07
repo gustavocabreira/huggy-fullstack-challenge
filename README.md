@@ -32,6 +32,19 @@ API desenvolvida em Laravel para gerenciar os contatos de um usuário. É possí
 - [Docker Compose](https://docs.docker.com/compose/install/)
 - Deverá ter as portas `80`, `1025`, `3306`, `4040`, `6379`, `7700`, `8025` e `9051` abertas e desocupadas.
 
+Para fins de simuação mais próxima possível de um ambiente de produção, o servidor nginx está configurado para uso de subdomínios localhost:
+
+- http://spa.localhost.com
+- http://api.localhost.com
+
+Então é necessário adicionar esses domínios ao /etc/hosts da maquina host:
+
+```bash
+echo -e "127.0.0.1 api.localhost.com\n127.0.0.1 web.localhost.com" | sudo tee -a /etc/hosts
+```
+
+Caso você esteja utlizando o Windows, você pode adicionar o arquivo hosts.txt no seu diretório de usuário.
+
 ### Executando o projeto
 
 1. Clone o repositório
