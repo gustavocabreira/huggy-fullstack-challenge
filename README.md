@@ -83,7 +83,7 @@ sh install.sh --app-name=huggy-fullstack-challenge
 7. Após a instalação do projeto, precisaremos acessar o NGROK para obter o endereço do nosso aplicativo.
 - Acesse o NGROK em http://localhost:4040 e copie o endereço do nosso aplicativo.
 - Cole o endereço no arquivo `.env`, na raiz do projeto, na chave `WEBHOOK_URL`. Deverá ficar assim: `WEBHOOK_URL=https://<ngrok_url>/api/webhook`
-- Também precisamos alterar o endereço do webhook no Twilio para que possammos fazer a conexão com o VOIP.
+- Também precisamos alterar o endereço do webhook no Twilio para que possamos fazer a conexão com o VOIP.
 - Acesse o console do Twilio em https://console.twilio.com/us1/develop/phone-numbers/manage/twiml-apps?frameUrl=%2Fconsole%2Fvoice%2Ftwiml%2Fapps%3Fx-target-region%3Dus1, acesse seu APP e configure o webhook.
 - A URL do webhook do Twilio deve ser o endereço do nosso aplicativo, como: `https://<ngrok_url>/api/twilio-webhook`
 
