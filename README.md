@@ -93,11 +93,13 @@ sh install.sh --app-name=huggy-fullstack-challenge
 docker compose exec -it laravel php artisan horizon:terminate
 ```
 
-9. Acesse a aplicação em http://api.localhost.com
+Observação: a API estará disponível em http://api.localhost.com apenas após seguir os passos do repositório frontend pois é la que se encontra o proxy reverso. Para acessar os recursos da API enquanto isso, você pode acessar diretamente por http://localhost:9051 (para a API) ou utilizar as demais portas de acordo com o serviço desejado.
 
-10. Você pode acessar a documentação do projeto em http://api.localhost.com/docs/api
+9. Acesse a aplicação em http://localhost:9051
 
-11. Se você quiser, você pode exportar a documentação da API para um arquivo JSON e utilizá-la no Postman acessando http://api.localhost.com/docs/api e exportando.
+10. Você pode acessar a documentação do projeto em http://localhost:9051/docs/api
+
+11. Se você quiser, você pode exportar a documentação da API para um arquivo JSON e utilizá-la no Postman acessando http://localhost:9051/docs/api e exportando.
 
 12. Após a instalação, você deve clonar o [repositório frontend](https://github.com/gustavocabreira/huggy-fullstack-challenge-spa) e seguir os passos descritos no README.md do repositório.
 
