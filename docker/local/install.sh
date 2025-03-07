@@ -60,6 +60,8 @@ docker compose exec -t laravel npm install
 docker compose exec -t laravel php artisan key:generate
 docker compose exec -it laravel php artisan migrate
 docker compose exec -it laravel npm i chokidar
+docker compose exec -it laravel php artisan storage:link
+docker compose exec -it laravel php artisan scout:sync-index-settings
 docker compose restart laravel
 
 echo "Started!"
