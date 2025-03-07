@@ -73,18 +73,9 @@ cd docker/local
 sh install.sh --app-name=huggy-fullstack-challenge
 ```
 
-6. Após a instalação, precisaremos configurar algumas coisas como, por exemplo, as credenciais do Huggy, as credenciais do Twilio e o webhook.
-- Acesse o arquivo `/docker/local/.env.example` e altere as credenciais do Huggy, Twilio e o webhook.
-
-7. Após isso, utilize o comando para reiniciar o projeto
-
-```bash
-docker compose restart
-```
-
-8. Após reiniciar o projeto, precisaremos acessar o NGROK para obter o endereço do nosso aplicativo.
+6. Após a instalação do projeto, precisaremos acessar o NGROK para obter o endereço do nosso aplicativo.
 - Acesse o NGROK em http://localhost:4040 e copie o endereço do nosso aplicativo.
-- Cole o endereço no arquivo `/docker/local/.env.example`, na raiz do projeto, na chave `WEBHOOK_URL`. Deverá ficar assim: `WEBHOOK_URL=https://<ngrok_url>/api/webhook`
+- Cole o endereço no arquivo `.env`, na raiz do projeto, na chave `WEBHOOK_URL`. Deverá ficar assim: `WEBHOOK_URL=https://<ngrok_url>/api/webhook`
 - Também precisamos alterar o endereço do webhook no Twilio para que possammos fazer a conexão com o VOIP.
 - Acesse o console do Twilio em https://console.twilio.com/us1/develop/phone-numbers/manage/twiml-apps?frameUrl=%2Fconsole%2Fvoice%2Ftwiml%2Fapps%3Fx-target-region%3Dus1, acesse seu APP e configure o webhook.
 - A URL do webhook deve ser o endereço do nosso aplicativo, como: `https://<ngrok_url>/api/twilio-webhook`
