@@ -65,6 +65,7 @@ cd huggy-fullstack-challenge
 ```bash
 cd docker/local
 ```
+
 4. Antes da instalação do projeto, precisaremos inserir a chave do NGROK no arquivo `/docker/local/.env.example` na chave `NGROK_KEY`.
 
 5. Execute o comando para instalar o projeto
