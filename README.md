@@ -83,6 +83,8 @@ sh start.sh
 
 8. Se você quiser, você pode exportar a documentação da API para um arquivo JSON e utilizá-la no Postman, acessando http://localhost/docs/api e exportando.
 
+9. Após a instalação, você deve clonar o [repositório frontend](https://github.com/gustavocabreira/huggy-fullstack-challenge-spa) e seguir os passos descritos no README.md do repositório.
+
 ## Código de respostas HTTP
 
 | Código | Descrição             | Explicação                                                                     | 
