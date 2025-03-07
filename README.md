@@ -87,13 +87,19 @@ sh install.sh --app-name=huggy-fullstack-challenge
 - Acesse o console do Twilio em https://console.twilio.com/us1/develop/phone-numbers/manage/twiml-apps?frameUrl=%2Fconsole%2Fvoice%2Ftwiml%2Fapps%3Fx-target-region%3Dus1, acesse seu APP e configure o webhook.
 - A URL do webhook do Twilio deve ser o endereço do nosso aplicativo, como: `https://<ngrok_url>/api/twilio-webhook`
 
-8. Acesse a aplicação em http://api.localhost.com
+8. Rode o comando para reiniciar o Horizon para que ele possa reconhecer a nova URL do webhook da aplicação (o Horizon irá reiniciar automaticamente graças à configuração do supervisor):
 
-9. Você pode acessar a documentação do projeto em http://api.localhost.com/docs/api
+```bash
+docker compose exec -it laravel php artisan horizon:terminate
+```
 
-10. Se você quiser, você pode exportar a documentação da API para um arquivo JSON e utilizá-la no Postman acessando http://api.localhost.com/docs/api e exportando.
+9. Acesse a aplicação em http://api.localhost.com
 
-11. Após a instalação, você deve clonar o [repositório frontend](https://github.com/gustavocabreira/huggy-fullstack-challenge-spa) e seguir os passos descritos no README.md do repositório.
+10. Você pode acessar a documentação do projeto em http://api.localhost.com/docs/api
+
+11. Se você quiser, você pode exportar a documentação da API para um arquivo JSON e utilizá-la no Postman acessando http://api.localhost.com/docs/api e exportando.
+
+12. Após a instalação, você deve clonar o [repositório frontend](https://github.com/gustavocabreira/huggy-fullstack-challenge-spa) e seguir os passos descritos no README.md do repositório.
 
 ## Código de respostas HTTP
 
