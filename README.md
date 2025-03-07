@@ -79,15 +79,15 @@ sh install.sh --app-name=huggy-fullstack-challenge
 - Cole o endereço no arquivo `.env`, na raiz do projeto, na chave `WEBHOOK_URL`. Deverá ficar assim: `WEBHOOK_URL=https://<ngrok_url>/api/webhook`
 - Também precisamos alterar o endereço do webhook no Twilio para que possammos fazer a conexão com o VOIP.
 - Acesse o console do Twilio em https://console.twilio.com/us1/develop/phone-numbers/manage/twiml-apps?frameUrl=%2Fconsole%2Fvoice%2Ftwiml%2Fapps%3Fx-target-region%3Dus1, acesse seu APP e configure o webhook.
-- A URL do webhook deve ser o endereço do nosso aplicativo, como: `https://<ngrok_url>/api/twilio-webhook`
+- A URL do webhook do Twilio deve ser o endereço do nosso aplicativo, como: `https://<ngrok_url>/api/twilio-webhook`
 
-9. Acesse a aplicação em http://api.localhost.com
+7. Acesse a aplicação em http://api.localhost.com
 
-10. Você pode acessar a documentação do projeto em http://api.localhost.com/docs/api
+8. Você pode acessar a documentação do projeto em http://api.localhost.com/docs/api
 
-11. Se você quiser, você pode exportar a documentação da API para um arquivo JSON e utilizá-la no Postman, acessando http://api.localhost.com/docs/api e exportando.
+9. Se você quiser, você pode exportar a documentação da API para um arquivo JSON e utilizá-la no Postman, acessando http://api.localhost.com/docs/api e exportando.
 
-12. Após a instalação, você deve clonar o [repositório frontend](https://github.com/gustavocabreira/huggy-fullstack-challenge-spa) e seguir os passos descritos no README.md do repositório.
+10. Após a instalação, você deve clonar o [repositório frontend](https://github.com/gustavocabreira/huggy-fullstack-challenge-spa) e seguir os passos descritos no README.md do repositório.
 
 ## Código de respostas HTTP
 
