@@ -65,26 +65,37 @@ cd huggy-fullstack-challenge
 ```bash
 cd docker/local
 ```
+4. Antes da instalação do projeto, precisaremos inserir a chave do NGROK no arquivo `/docker/local/.env.example` na chave `NGROK_KEY`.
 
-4. Execute o comando para instalar o projeto
+5. Execute o comando para instalar o projeto
 
 ```bash
 sh install.sh --app-name=huggy-fullstack-challenge
 ```
 
-5. Após a instalação, utilize o comando para iniciar o projeto
+6. Após a instalação, precisaremos configurar algumas coisas como, por exemplo, as credenciais do Huggy, as credenciais do Twilio e o webhook.
+- Acesse o arquivo `/docker/local/.env.example` e altere as credenciais do Huggy, Twilio e o webhook.
+
+7. Após isso, utilize o comando para reiniciar o projeto
 
 ```bash
-sh start.sh
+docker compose restart
 ```
 
-6. Acesse a aplicação em http://api.localhost.com
+8. Após reiniciar o projeto, precisaremos acessar o NGROK para obter o endereço do nosso aplicativo.
+- Acesse o NGROK em http://localhost:4040 e copie o endereço do nosso aplicativo.
+- Cole o endereço no arquivo `/docker/local/.env.example`, na raiz do projeto, na chave `WEBHOOK_URL`. Deverá ficar assim: `WEBHOOK_URL=https://<ngrok_url>/api/webhook`
+- Também precisamos alterar o endereço do webhook no Twilio para que possammos fazer a conexão com o VOIP.
+- Acesse o console do Twilio em https://console.twilio.com/us1/develop/phone-numbers/manage/twiml-apps?frameUrl=%2Fconsole%2Fvoice%2Ftwiml%2Fapps%3Fx-target-region%3Dus1, acesse seu APP e configure o webhook.
+- A URL do webhook deve ser o endereço do nosso aplicativo, como: `https://<ngrok_url>/api/twilio-webhook`
 
-7. Você pode acessar a documentação do projeto em http://api.localhost.com/docs/api
+9. Acesse a aplicação em http://api.localhost.com
 
-8. Se você quiser, você pode exportar a documentação da API para um arquivo JSON e utilizá-la no Postman, acessando http://api.localhost.com/docs/api e exportando.
+10. Você pode acessar a documentação do projeto em http://api.localhost.com/docs/api
 
-9. Após a instalação, você deve clonar o [repositório frontend](https://github.com/gustavocabreira/huggy-fullstack-challenge-spa) e seguir os passos descritos no README.md do repositório.
+11. Se você quiser, você pode exportar a documentação da API para um arquivo JSON e utilizá-la no Postman, acessando http://api.localhost.com/docs/api e exportando.
+
+12. Após a instalação, você deve clonar o [repositório frontend](https://github.com/gustavocabreira/huggy-fullstack-challenge-spa) e seguir os passos descritos no README.md do repositório.
 
 ## Código de respostas HTTP
 

@@ -70,7 +70,7 @@ services:
             - "http"
             - "http://laravel:9051"
         environment:
-            NGROK_AUTHTOKEN: ${NGROK_KEY}
+            NGROK_AUTHTOKEN:
         ports:
             - 4040:4040
         networks:
