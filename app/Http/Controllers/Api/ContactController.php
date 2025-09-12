@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Actions\Contact\CreateContactAction;
 use App\Actions\Contact\DestroyContactAction;
 use App\Actions\Contact\UpdateContactAction;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Contact\CreateContactRequest;
 use App\Http\Requests\Contact\IndexContactRequest;
 use App\Http\Requests\Contact\UpdateContactRequest;
 use App\Http\Resources\ContactResource;
@@ -32,16 +30,6 @@ class ContactController extends Controller
             ->paginate($request->input('per_page') ?? 10);
 
         return ContactResource::collection($contacts)->response();
-    }
-
-    /**
-     * Cria um novo contato
-     */
-    public function store(CreateContactRequest $request, CreateContactAction $action): JsonResponse
-    {
-        $contact = $action->execute($request);
-
-        return response()->json(new ContactResource($contact), Response::HTTP_CREATED);
     }
 
     /**
